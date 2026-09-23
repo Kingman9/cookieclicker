@@ -17358,6 +17358,3 @@ window.onload=function()
 		else loadLangAndLaunch(lang);
 	}
 };
-Game.registerHook('ready', function() {
-    Game.LoadMod('https://cookiemonsterteam.github.io/CookieMonster/dist/CookieMonster.js');
-}); 
