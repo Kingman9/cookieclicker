@@ -17358,13 +17358,3 @@ window.onload=function()
 		else loadLangAndLaunch(lang);
 	}
 };
-
-// Reliable loader for Cookie Monster
-function loadCookieMonster() {
-    if (typeof Game !== 'undefined' && Game.Ready) {
-        Game.LoadMod('https://cookiemonsterteam.github.io/CookieMonster/dist/CookieMonster.js');
-    } else {
-        setTimeout(loadCookieMonster, 500);
-    }
-}
-loadCookieMonster();
