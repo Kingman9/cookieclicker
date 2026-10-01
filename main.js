@@ -17309,7 +17309,7 @@ window.onload=function()
 				},
 				function(){
 					Game.Launch();
-					if (top!=self && !Game.local) Game.ErrorFrame();
+					if (top!=self && !Game.local && typeof Game.ErrorFrame==='function') Game.ErrorFrame();
 					else
 					{
 						console.log('[=== '+choose([
