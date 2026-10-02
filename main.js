@@ -2075,7 +2075,7 @@ Game.Launch=function()
 		// Load Cookie Monster right after game is ready
 var cmScript = document.createElement('script');
 cmScript.id = 'cookieMonsterScript';
-cmScript.src = 'https://cookiemonsterteam.github.io/CookieMonster/dist/CookieMonster.js';
+cmScript.src = 'CookieMonster/dist/CookieMonster.js';
 document.head.appendChild(cmScript);
 		/*=====================================================================================
 		VARIABLES AND PRESETS
