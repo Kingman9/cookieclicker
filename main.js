@@ -2075,7 +2075,7 @@ Game.Launch=function()
 		// Load Cookie Monster right after game is ready
 var cmScript = document.createElement('script');
 cmScript.id = 'cookieMonsterScript';
-cmScript.src = 'https://cookiemonsterteam.github.io/CookieMonster/dist/CookieMonster.js';
+cmScript.src = 'CookieMonster/dist/CookieMonster.js';
 document.head.appendChild(cmScript);
 		/*=====================================================================================
 		VARIABLES AND PRESETS
@@ -2311,6 +2311,7 @@ document.head.appendChild(cmScript);
 			Game.prefs.fullscreen=0;//if true, Steam game will be fullscreen
 			Game.prefs.screenreader=0;//if true, add some DOM stuff to facilitate screenreader interaction (requires reload)
 			Game.prefs.discordPresence=1;//if true and applicable, show game activity in Discord status
+		Game.prefs.autoClicker=0;//if true, automatically clicks the big cookie
 		}
 		Game.DefaultPrefs();
 		
@@ -2919,6 +2920,7 @@ document.head.appendChild(cmScript);
 			(Game.prefs.fullscreen?'1':'0')+
 			(Game.prefs.screenreader?'1':'0')+
 			(Game.prefs.discordPresence?'1':'0')+
+			(Game.prefs.autoClicker?'1':'0')+
 			'';
 			str2=pack3(str2);
 			str+=str2+'|';
@@ -3223,6 +3225,7 @@ document.head.appendChild(cmScript);
 						Game.prefs.fullscreen=spl[24]?parseInt(spl[24]):0;if (App) App.setFullscreen(Game.prefs.fullscreen);
 						Game.prefs.screenreader=spl[25]?parseInt(spl[25]):0;
 						Game.prefs.discordPresence=spl[26]?parseInt(spl[26]):1;
+					Game.prefs.autoClicker=spl[27]?parseInt(spl[27]):0;
 						BeautifyAll();
 						spl=str[4].split(';');//cookies and lots of other stuff
 						Game.cookies=parseFloat(spl[0]);
@@ -6935,6 +6938,7 @@ document.head.appendChild(cmScript);
 							Game.WritePrefButton('notScary','notScaryButton',loc("Scary stuff")+OFF,loc("Scary stuff")+ON,0,1)+'<br>'+
 							Game.WritePrefButton('timeout','timeoutButton',loc("Sleep mode timeout")+ON,loc("Sleep mode timeout")+OFF)+'<label>('+loc("on slower computers, the game will put itself in sleep mode when it's inactive and starts to lag out; offline CpS production kicks in during sleep mode")+')</label><br>'+
 							Game.WritePrefButton('screenreader','screenreaderButton',loc("Screen reader mode")+ON,loc("Screen reader mode")+OFF,'Game.toSave=true;Game.toReload=true;')+'<label>('+loc("allows optimizations for screen readers; game will reload")+')</label><br>'+
+						Game.WritePrefButton('autoClicker','autoClickerButton','Auto-clicker ON','Auto-clicker OFF')+'<label>(automatically clicks the big cookie for you)</label><br>'+
 						'</div>'+
 						//'<div class="listing">'+Game.WritePrefButton('autosave','autosaveButton','Autosave ON','Autosave OFF')+'</div>'+
 						(!App?'<div class="listing"><a class="option smallFancyButton" '+Game.clickStr+'="Game.CheckModData();PlaySound(\'snd/tick.mp3\');">'+loc("Check mod data")+'</a><label>('+loc("view and delete save data created by mods")+')</label></div>':'')+
@@ -16572,6 +16576,8 @@ document.head.appendChild(cmScript);
 			//these are kinda fun
 			//if (Game.BigCookieState==2 && !Game.promptOn && Game.Scroll!=0) Game.ClickCookie();
 			//if (Game.BigCookieState==1 && !Game.promptOn) Game.ClickCookie();
+			//auto-clicker feature
+			if (Game.prefs.autoClicker && !Game.promptOn && !Game.OnAscend && Game.AscendTimer==0) Game.ClickCookie();
 			
 			//handle graphic stuff
 			if (Game.prefs.wobbly)
