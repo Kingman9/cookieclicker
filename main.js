@@ -174,7 +174,7 @@ DataDir='https://orteil.dashnet.org/data/';
 
 var getJson=function(url,callback,error)
 {
-	if (Game.local) return false;
+	if (Game.local && url.indexOf('http')==0) return false;//playing locally: our own bundled data files still load
 	var xhr=new XMLHttpRequest();
 	if (!xhr){return false;}
 	xhr.onreadystatechange=function()
@@ -2628,7 +2628,7 @@ setTimeout(function(){if (Game.prefs.cookieMonster) document.head.appendChild(cm
 		
 		Game.UpdateHeralds=function()
 		{
-			if (!App) getJson(DataDir+'cookieclickersteam.json',function(r){
+			if (!App) getJson(Game.local?('data/cookieclickersteam.json'):(DataDir+'cookieclickersteam.json'),function(r){
 				Game.heralds=r?(parseInt(r.steamPlayers||1)):1;
 				Game.heralds=Math.max(0,Math.min(100,Math.ceil(Game.heralds/100*100)/100));
 				l('heraldsAmount').textContent=Math.floor(Game.heralds);
