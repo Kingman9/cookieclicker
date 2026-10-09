@@ -8,7 +8,10 @@
 	var SAVESUFFIX='';
 	var App=typeof App==='undefined'?0:App;
 	var PRESETMODS=[];
-	var LOCAL=(App || !window.location.hostname || window.location.hostname==='localhost' || window.location.hostname==='127.0.0.1' || (top!=self));
+	//this repo is a self-hosted mirror and is never served from the official site, so any other host counts as a
+	//local/offline instance: no ads or tracking, no frame-busting, and the bundled data files are used instead of
+	//the official ones (which are CORS-blocked and unreachable off-site)
+	var LOCAL=(App || window.location.hostname.indexOf('orteil.dashnet.org')==-1);
 </script>
 
 <!-- external -->
