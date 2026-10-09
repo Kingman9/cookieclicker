@@ -8,7 +8,7 @@
 	var SAVESUFFIX='';
 	var App=typeof App==='undefined'?0:App;
 	var PRESETMODS=[];
-	var LOCAL=(App || !window.location.hostname || window.location.hostname==='localhost' || window.location.hostname==='127.0.0.1');
+	var LOCAL=(App || !window.location.hostname || window.location.hostname==='localhost' || window.location.hostname==='127.0.0.1' || (top!=self));
 </script>
 
 <!-- external -->
@@ -56,7 +56,7 @@ Feel free to alter this code to your liking, but please do not re-host it, do no
 <script src="base64.js"></script>
 
 <link href="style.css?v=10c" rel="stylesheet" type="text/css">
-<script src="main.js?v=13g"></script>
+<script src="main.js?v=13j"></script>
 
 <!-- ad -->
 <script type="text/javascript">
