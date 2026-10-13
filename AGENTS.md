@@ -18,4 +18,4 @@ Static HTML/JS/CSS game (Cookie Clicker mirror). No build step, no package manag
 
 ## Notes
 - The game is pure client-side JS; "failed to start" in this context means nothing served on port 3000, not a build error.
-- Cookie Monster mod injection was removed (reverted). The game runs as vanilla.
+- Cookie Monster mod (v2.053.10, from dev branch) is loaded locally via `CookieMonster.js`. It's loaded AFTER game init (not as PRESETMOD) to avoid 2.053/2.058 incompatibility — loading as PRESETMOD breaks building rendering. The post-init loader script in `index.html` polls for `Game.ready === 1` then calls `Game.LoadMod('CookieMonster.js')`.
