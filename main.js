@@ -2072,11 +2072,6 @@ Game.Launch=function()
 	Game.Init=function()
 	{
 		Game.ready=1;
-		// Load Cookie Monster right after game is ready
-var cmScript = document.createElement('script');
-cmScript.id = 'cookieMonsterScript';
-cmScript.src = 'https://cookiemonsterteam.github.io/CookieMonster/dist/CookieMonster.js';
-document.head.appendChild(cmScript);
 		/*=====================================================================================
 		VARIABLES AND PRESETS
 		=======================================================================================*/
@@ -17309,7 +17304,7 @@ window.onload=function()
 				},
 				function(){
 					Game.Launch();
-					if (top!=self && !Game.local && typeof Game.ErrorFrame==='function') Game.ErrorFrame();
+					if (top!=self && !Game.local) Game.ErrorFrame();
 					else
 					{
 						console.log('[=== '+choose([
