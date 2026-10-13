@@ -1,0 +1,1 @@
+window.BASE44_PREVIEW_MODE='1';

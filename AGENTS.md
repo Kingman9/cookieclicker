@@ -4,14 +4,18 @@
 Static HTML/JS/CSS game (Cookie Clicker mirror). No build step, no package manager, no backend. All files are served directly.
 
 ## Running
-- `docker compose -f docker-compose.base44.yml up -d` serves the site on port 3000 via nginx.
+- `docker compose -f docker-compose.base44.yml up -d` serves the site on port 3000 via Python HTTP server.
 - No dependencies to install; no migrations or seeds needed.
 
 ## Key files
-- `index.html` — entry point, loads `main.js`, `style.css`, `base64.js`, etc.
+- `index.html` — entry point, loads `env.js`, `main.js`, `style.css`, `base64.js`, etc.
 - `main.js` — the entire game (ES5, ~976KB, single file). Very large; avoid reading it in full.
 - `img/`, `snd/`, `loc/`, `cf-fonts/` — static assets.
 
+## Sandbox overrides
+- `env.js` is generated at container startup by the compose command, writing `window.BASE44_PREVIEW_MODE` from the environment. When `BASE44_PREVIEW_MODE` is `"1"`, `index.html` sets `LOCAL=true`, which prevents the game from making CORS-blocked AJAX calls to `orteil.dashnet.org` (heralds, grandmas, news data). When the flag is absent, original behavior is preserved.
+- The volume mount is writable (not `:ro`) so the startup command can create `env.js` in the served directory.
+
 ## Notes
 - The game is pure client-side JS; "failed to start" in this context means nothing served on port 3000, not a build error.
-- Commit 202bed5 injected a Cookie Monster mod script (`https://cookiemonsterteam.github.io/CookieMonster/dist/CookieMonster.js`) into `Game.Init`. This is an external dependency that loads at runtime; if it fails to load (network/CORS) the game still runs but the mod won't activate.
+- Cookie Monster mod injection was removed (reverted). The game runs as vanilla.
